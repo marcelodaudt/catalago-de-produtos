@@ -26,10 +26,10 @@
 				<div class="input-group mb-3">
 					<select id="ordem" name="ordem" class="form-control">
 						<option>Escolha a Ordem</option>
-						<option value="1" @if($ordem == 1) selected @endif>Título (A-Z)</option>
-						<option value="2" @if($ordem == 2) selected @endif>Título (Z-A)</option>
-						<option value="3" @if($ordem == 3) selected @endif>Valor (Maior-Menor)</option>
-						<option value="4" @if($ordem == 4) selected @endif>Valor (Menor-Maior)</option>
+						<option value="1" @if($ordem == "1") selected @endif>Título (A-Z)</option>
+						<option value="2" @if($ordem == "2") selected @endif>Título (Z-A)</option>
+						<option value="3" @if($ordem == "3") selected @endif>Valor (Maior-Menor)</option>
+						<option value="4" @if($ordem == "4") selected @endif>Valor (Menor-Maior)</option>
 					</select>
 					<div class="input-group-append">
 						<button class="btn btn-outline-secondary">Ordenar</button>
@@ -74,5 +74,7 @@
 		<p><strong>A Quantidade de Produtos é: </strong>{{$contagemP}}</p>
 		<p><strong>A Quantidade de Produtos com valor maior que R$ 10,00 é: </strong>{{$maiorDezP}}</p>
 	</div>
-	{{$produtos->links()}}
+
+	{{ $produtos->appends(['busca' => \Request::get('busca'), 'ordem' => \Request::get('ordem')])->links() }}
+
 @endsection

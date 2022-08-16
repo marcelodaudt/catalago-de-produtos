@@ -15,16 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/contato', function(){
-//	return view("contato");
-//});
-
 Route::get('/contato', 'ContatoController@index');
 Route::post('/contato/enviar', 'ContatoController@enviar');
 
+Route::any('/produtos/ordem', 'ProdutosController@ordem')->name('ordem');
+Route::any('/produtos/busca', 'ProdutosController@busca')->name('busca');
 Route::resource('/produtos', 'ProdutosController');
-Route::any('/produtos/ordem', 'ProdutosController@ordem');
-Route::post('/produtos/busca', 'ProdutosController@busca');
 
 Auth::routes();
 

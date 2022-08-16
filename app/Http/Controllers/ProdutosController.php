@@ -9,15 +9,25 @@ use App\Produtos;
 class ProdutosController extends Controller
 {
     public function index(){
-    	$produtos = Produtos::paginate(4);
         $maiscaro = Produtos::all()->max('preco');
         $maisbarato = Produtos::all()->min('preco');
         $media = Produtos::all()->avg('preco');
         $soma = Produtos::all()->sum('preco');
         $contagem = Produtos::all()->count();
         $maiorDez = Produtos::where('preco','>',10)->count();
-    	return view('produtos.index',array('produtos' => $produtos, 'buscar' => null, 'ordem' => null, 'maiscaro' => $maiscaro,
+
+        $produtos = Produtos::paginate(4);
+        return view('produtos.index',array('produtos' => $produtos, 'buscar' => null, 'ordem' => null, 'maiscaro' => $maiscaro,
                     'maisbarato' => $maisbarato, 'mediavalor' => $media, 'somavalor' => $soma, 'contagemP' => $contagem, 'maiorDezP' => $maiorDez));
+    }
+
+    public function busca(Request $request){
+        $buscaInput = $request->input('busca');
+        $produtos = Produtos::where('titulo','LIKE','%'.$buscaInput.'%')
+                            ->orwhere('descricao','LIKE','%'.$buscaInput.'%')
+                            ->paginate(4);
+        return view('produtos.index',array('produtos' => $produtos, 'buscar' => $buscaInput, 'ordem' => null, 'maiscaro' => null,
+                    'maisbarato' => null, 'mediavalor' => null, 'somavalor' => null, 'contagemP' => null, 'maiorDezP' => null));
     }
 
     public function ordem(Request $request){
@@ -115,15 +125,6 @@ class ProdutosController extends Controller
         }
         $produto->delete();
         return redirect()->back()->with('success', 'Produto deletado com sucesso!');
-    }
-
-    public function busca(Request $request){
-        $buscaInput = $request->input('busca');
-        $produtos = Produtos::where('titulo','LIKE','%'.$buscaInput.'%')
-                            ->orwhere('descricao','LIKE','%'.$buscaInput.'%')
-                            ->paginate(4);
-        return view('produtos.index',array('produtos' => $produtos, 'buscar' => $buscaInput, 'ordem' => null, 'maiscaro' => null,
-                    'maisbarato' => null, 'mediavalor' => null, 'somavalor' => null, 'contagemP' => null, 'maiorDezP' => null));
     }
 
 }
