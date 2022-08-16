@@ -85,6 +85,7 @@
                 </div>
 
                 <div class="links">
+                    <a href="{{ url('/produtos') }}">Catálogo de Produtos</a>
                     <a href="http://daudt.com.br">Portifólio</a>
                     <a href="https://github.com/marcelodaudt">GitHub</a>
                 </div>
