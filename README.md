@@ -21,8 +21,3 @@ Procedimentos de deploy básico para desenvolvimento:
     php artisan migrate:fresh --seed
 
 
-## Acesso
-
-Visualização do projeto em funcionamento.
-
-https://daudt.com.br/projetos/catalogo
